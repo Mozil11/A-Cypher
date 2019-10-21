@@ -1,4 +1,4 @@
-/* miniprogram/pages/home.wxss */
+/* miniprogram/pages/index/index.wxss */
 
 /* 天气插件 */
 
@@ -160,6 +160,7 @@ page {
 }
 
 .item-footer {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -223,7 +224,7 @@ page {
     align-items: center;
     background: rgba(0, 180, 170, 0.5);
     border-radius: 50%;
-    bottom: 65rpx;
+    bottom: 15rpx;
     font-size: 28rpx;
 }
 
@@ -279,4 +280,42 @@ page {
 
 .loading-block text:nth-child(5) {
     -webkit-animation-delay: 0.8s;
+}
+.onesound{
+    position: relative;
+    width: 40%;
+    height: 67rpx;
+    border-radius: 25px;
+    background: rgba(0, 180, 170,1);
+    margin: 0;
+    margin-top: 20rpx;
+    font-size: 30rpx;
+    color: #fff;
+}
+.sound{
+position: absolute;
+height: 50rpx;
+left: 20rpx;
+width: 50rpx;
+margin: auto;
+top: 0;
+bottom: 0;
+
+}
+.dianzan{
+    position: absolute;
+    right: 70rpx;
+    color: #666;
+
+}
+.h{
+    height: 650rpx;
+}
+.tq{
+    text-align: center;
+    font-size: 45rpx;
+    margin-top: 94rpx;
+color: #666;
+
+
 }

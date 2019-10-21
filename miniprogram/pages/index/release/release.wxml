@@ -3,9 +3,19 @@
   <form bindsubmit="onSubmit" bindreset="formReset">
     <view class="feedback-block bgff">
       <view class=" feedback-textarea-block">
-        <textarea class="feedback-textarea" maxlength="{{maxlength}}" name="Message" placeholder='说出你觉得很硬核的段子' placeholder-style='color:#9f9f9f; line-height: 48rpx;' bindinput="bindTextarea"></textarea>
+        <textarea class="feedback-textarea" maxlength="{{maxlength}}" name="Message" placeholder='你会Freestyle吗' placeholder-style='color:#9f9f9f; line-height: 48rpx;' bindinput="bindTextarea"></textarea>
         <view class="word-nums">{{currLength}}/{{maxlength}}</view>
       </view>
+    </view>
+    <view class="no-audio" wx:if="{{!hadAudio}}">
+        Your Punchline
+    </view>
+    <view class="no-audio" wx:else>
+        <button class="onesound" bindtap='audioPlay' animation="{{animationPlus}}">
+            <image class="sound" mode="aspectFill" src="../../../images/common/nocie.png"></image>
+            <!-- <audio  src="{{src}}" id="myAudio" ></audio> -->
+            {{hour==0?'':hour+'h,'}} {{min==0?'':min+'m,'}} {{second==0?'':second+'s'}}
+        </button>
     </view>
     <view class="upload-block mt10 bgff">
       <view class="upload-title">上传图片
@@ -19,8 +29,26 @@
       </view>
     </view>
     <!-- 提交按钮 -->
+    <view class="start-audio">
+        
+        <button class="show" bindtap='getMyAudio'>
+             <image class="audio" mode="aspectFill" src="../../../images/common/audio.png"></image>
+        </button>
+        <view class="turn">到你发声~</view>
+    </view>
     <button hover-class='hover-btn' disabled="{{disabled}}" class="main-submit-btn submit-info" formType="submit">提交</button>
   </form>
+  
+    <view class="bg" wx:if="{{showAudio}}">
+        <view class="stop-box {{showAudio?'upanimate':''}}">
+          <view class="audiotime">{{min<10?'0'+min:min}}:{{second<10?'0'+second:second}}</view>
+            <view class="bor">
+                <view class="blue" bindtap='stopAudio'>
+    
+                </view>
+            </view>
+        </view>
+    </view>
 </view>
 <!-- <view wx:else style="padding:30rpx;">
   硬核，作为网络流行语的该词，原本的含义为形容说唱音乐和游戏。因此早有硬核说唱和硬核游戏的说法。硬核说唱是更具有力量感的音乐形式，热情奔放猛烈强劲。而硬核游戏存在一定难度并有特定受众的游戏。但是作为网络语而流行起来的“硬核”这个词使用的范围更加广泛，不单单形容说唱和游戏，我们可以把它理解为是一种很厉害、很酷、很彪悍、很刚硬的意思。

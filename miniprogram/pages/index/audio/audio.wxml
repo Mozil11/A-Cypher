@@ -1,0 +1,27 @@
+<!--miniprogram/pages/index/audio.wxml-->
+<view class="context">
+    <view class="no-audio" wx:if="{{!hadAudio}}">
+        缺少你的声音
+    </view>
+    <view class="no-audio" wx:else>
+        <button class="onesound" bindtap='audioPlay'>
+            <image class="sound" mode="aspectFill" src="../../../images/common/nocie.png"></image>
+            <!-- <audio  src="{{src}}" id="myAudio" ></audio> -->
+        </button>
+    </view>
+    <view class="start-audio">
+        <button class="show" bindtap='getMyAudio'>
+             <image class="audio" mode="aspectFill" src="../../../images/common/audio.png"></image>
+        </button>
+        <view class="turn">到你发声~</view>
+    </view>
+    <view class="bg" wx:if="{{showAudio}}">
+        <view class="stop-box {{showAudio?'upanimate':''}}">
+            <view class="bor">
+                <view class="blue" bindtap='stopAudio'>
+    
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

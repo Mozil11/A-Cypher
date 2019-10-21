@@ -8,7 +8,7 @@ Page({
     objectArray: [],
     typeIndex: 0,
 
-
+    access_token:'',
     imgList: [],
     disabled: false,
     isRelease: false,
@@ -19,10 +19,10 @@ Page({
   },
   onLoad: function (options) {
     this.onServices();
+    this.getBaiduToken()
   },
   onServices() {
     db.collection('services').get().then(res => {
-      console.log(res)
       if (res.data.length) {
         this.setData({
           isRelease: res.data[0].isRelease,
@@ -60,6 +60,7 @@ Page({
     wx.chooseImage({
       count: 1,
       success: function (res) {
+        console.log(res)
         _this.updateImgFile(res);
       }
     })
@@ -68,6 +69,7 @@ Page({
   updateImgFile(obj) {
     let _this = this;
     let _imgList = [];
+    console.log('updateImgFile:'+obj)
     if (obj.tempFilePaths) {
       obj.tempFilePaths.map((item, index) => {
         // _imgList = _this.data.imgList;
@@ -93,6 +95,7 @@ Page({
       title: '识别中...',
     })
     _imgList.map((item, index) => {
+      console.log(item)
       // 图片开始异步上传
       _this.aip(item)
     })
@@ -129,44 +132,74 @@ Page({
     })
     console.log(this.data.imgList)
   },
+  //获取Access Token
+  getBaiduToken(){
+    wx.request({
+      url: 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=0ykzn4GXkfbcWaxWMHxSdXFp&client_secret=QyV8LYmAzbwcqbDiS1HGXpH9eBirqU0y', //开发者服务器接口地址",
+       //请求的参数",
+      method: 'GET',
+      // dataType: 'json', //如果设为json，会尝试对返回的数据做一次 JSON.parse
+      success: res => {
+        console.log(res)
+        this.setData({
+          access_token:res.data.access_token
+        })
+      },
+      fail: () => {},
+      complete: () => {}
+    });
+  
+  },
   //-------------------------------上传并识别----------------------------------
   aip(filePath) {
     let _that = this
     // let _baseUrl = 'http://127.0.0.1:3001'
     let _baseUrl = _that.data.baseUrl
-    console.log(_baseUrl)
-    wx.uploadFile({
-      url: _baseUrl + '/baiduai/aip' + '?type=' + _that.data.objectArray[_that.data.typeIndex - 0].type, 
-      filePath: filePath,
-      name: 'file',
-      formData: {
-        'type': _that.data.objectArray[_that.data.typeIndex - 0].type
-      },
-      success(res) {
-         //do something
-        _that.setData({
-          disabled: false
-        })
-        wx.hideLoading();  // 成功后隐藏
-        res = JSON.parse(res.data)
-        console.log(res)
-        if (res.success) {
-          if (res.data.result.length) {
-            res.data.result.map(item=>{
-              if (item.score) {
-                item.score = ((item.score - 0) * 100).toFixed(2) + '%'
-              }
-              if (item.probability) {
-                item.probability = ((item.probability-0) * 100).toFixed(2) + '%'
-              }
+    console.log('_baseUrl:'+_baseUrl)
+    wx.getFileSystemManager().readFile({
+      filePath: filePath, //选择图片返回的相对路径
+      encoding: 'base64', //编码格式
+      success: res => { //成功的回调
+        
+        var img = encodeURIComponent(res.data)
+        console.log(img)
+        wx.request({
+          url:  _baseUrl+_that.data.objectArray[_that.data.typeIndex - 0].type+'?access_token='+this.data.access_token,  //开发者服务器接口地址",
+          data: 'image='+img, //请求的参数",
+          'Content-Type':'application/x-www-form-urlencoded',
+          method: 'POST',
+          // dataType: 'json', //如果设为json，会尝试对返回的数据做一次 JSON.parse
+          success: res => {
+            console.log(res)
+             //do something
+            _that.setData({
+              disabled: false
             })
-          }
-          _that.setData({
-            result:res.data.result
-          })
-        }
+            wx.hideLoading();  // 成功后隐藏
+            // res = JSON.parse(res.data)
+            if (res.errMsg == "request:ok") {
+              if (res.data.result.length) {
+                res.data.result.map(item=>{
+                  if (item.score) {
+                    item.score = ((item.score - 0) * 100).toFixed(2) + '%'
+                  }
+                  if (item.probability) {
+                    item.probability = ((item.probability-0) * 100).toFixed(2) + '%'
+                  }
+                })
+              }
+              _that.setData({
+                result:res.data.result
+              })
+            }
+          },
+          fail: () => {},
+          complete: () => {}
+        });
       }
     })
+
+   
   },
   backPage() {
     wx.navigateBack({

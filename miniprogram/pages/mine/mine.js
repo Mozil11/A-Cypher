@@ -22,7 +22,7 @@ Page({
         </section>
         <section style="padding:0.2em 1em;">
           <section data-autoskip="1" style="font-size: 14px;text-align: justify;letter-spacing: 1.5px;line-height: 1.75em;color:#4d909a;padding:0em 1em;">
-            <p> 硬核，作为网络流行语的该词，原本的含义为形容说唱音乐和游戏。因此早有硬核说唱和硬核游戏的说法。硬核说唱是更具有力量感的音乐形式，热情奔放猛烈强劲。而硬核游戏存在一定难度并有特定受众的游戏。但是作为网络语而流行起来的“硬核”这个词使用的范围更加广泛，不单单形容说唱和游戏，我们可以把它理解为是一种很厉害、很酷、很彪悍、很刚硬的意思。
+            <p> Cypher 麦克风接力，意思是指一群说唱歌手一个接一个来一段自己的说唱。所以现在到你了
             </p>
           </section>
         </section>

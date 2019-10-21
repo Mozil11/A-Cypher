@@ -14,7 +14,7 @@ App({
         } else {
             // 小程序在开始使用云能力前需进行初始化【全局初始化】
             wx.cloud.init({
-                env: 'mini-change-4i05k',     // 这里填写【环境ID】 而不是环境名
+                env: 'cypher-ckl74',     // 这里填写【环境ID】 而不是环境名
                 traceUser: true,    // 是否在将用户访问记录到用户管理中，在控制台中可见
             })
         }

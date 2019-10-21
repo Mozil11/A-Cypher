@@ -1,9 +1,34 @@
 // miniprogram/pages/index/release/release.js
+
 const app = getApp()
 const db = wx.cloud.database()
 const _ = db.command;
+const recorderManager = wx.getRecorderManager();
+const innerAudioContext =  wx.createInnerAudioContext()
+const options = {
+  
+  sampleRate: 44100,
+  numberOfChannels: 1,
+  encodeBitRate: 192000,
+  format: 'mp3',
+  frameSize: 50
+}
 Page({
   data: {
+    hadAudio:false,
+    audiotempFilePath:'',
+    myAudio:'',
+    auFeildId:'',
+    showAudio:false,
+    src:'',
+    animationPlus:{},
+    second:0,
+    min:0,
+    hour:0,
+    time:'',
+    audioTime:'',
+
+
     currLength: 0,
     maxlength: 500,
 
@@ -71,17 +96,28 @@ Page({
   onSubmit(e) {
     let _imgList = this.data.imgList;
     let _that = this;
-    if (_imgList.length > 0) {
+    if (_imgList.length > 0&&this.data.myAudio=='') {
+      console.log(1)
       // 先上传再提交表单
       this.lastUpload(e); // 提交时上传图片
-    } else {
+    } else if(this.data.myAudio!=''&&_imgList.length == 0){
+      console.log(2)
+      this.uploadAudio(e)
+    }else if(_imgList.length > 0&&this.data.myAudio!=''){
+      console.log(3)
+      this.uuuupppp(e)
+    }else{
+      console.log(4)
       // 直接提交表单
-      this.submitForm(e, []);
+      this.submitForm(e, [],'');
     }
   },
-  submitForm(e, imgArr) {
+  submitForm(e, imgArr,fileID) {
     let _userInfo = wx.getStorageSync('userInfo');
+    
     let _obj = {
+      time:[this.data.hour,this.data.min,this.data.second],
+      audio:fileID,
       image: imgArr,
       content: e.detail.value.Message,
       nickName: _userInfo.nickName,
@@ -221,5 +257,145 @@ Page({
       imgList: _imgList
     })
     console.log(this.data.imgList)
+  },
+  //-------------------------------------声音-------------------------------------------
+  getMyAudio(){
+    this.setData({
+      showAudio:true
+    })
+    var hour,minute,second;//时 分 秒
+    hour=minute=second=0;
+    recorderManager.start(options)
+    recorderManager.onError(e=>{
+      console.log(e)
+    })
+    clearInterval(this.data.time)
+    this.data.time = setInterval(()=>{
+      second++;
+      if(second>=60){
+        second=0;
+        minute=minute+1;
+      }
+   
+      if(minute>=60){
+        minute=0;
+        hour=hour+1;
+      }
+     
+      this.setData({
+        second:second,
+        min:minute,
+        hour:hour,
+       
+      })
+    },1000)
+  },
+  stopAudio(){
+    var that = this
+    console.log(1)
+    clearInterval(this.data.time)
+    
+    recorderManager.stop()
+    recorderManager.onStop((res) => {
+      console.log('recorder stop', res)
+      innerAudioContext.src=res.tempFilePath
+      let _floder = that.getUserId();
+      let _openid = wx.getStorageSync('userInfo')._openid;
+      const cloudPath = 'kklist/' + _openid + '-' + _floder + '/' + _floder + res.tempFilePath.match(/\.[^.]+?$/)[0]
+      that.setData({
+        myAudio : cloudPath,
+        audiotempFilePath:res.tempFilePath,
+        hadAudio:true,
+        showAudio:false
+      })
+
+    
+    })
+    recorderManager.onError(e=>{
+      console.log(e)
+    })
+  },
+  uploadAudio(e){
+    let _this = this;
+    
+      wx.cloud.uploadFile({
+        cloudPath: _this.data.myAudio,
+        filePath: _this.data.audiotempFilePath,
+      }).then(res => {
+        if (res.statusCode === 200) {
+          
+          console.log(res.fileID)
+          _this.setData({
+            auFeildId:res.fileID
+          })
+          _this.submitForm(e,[],res.fileID)
+          
+        }
+      })
+  },
+  audioPlay () {
+    var animationPlus = wx.createAnimation({
+      duration: 50,
+      timingFunction: 'ease-out'
+    })
+    animationPlus.rotateZ(5).step();
+    animationPlus.rotateZ(-5).step();
+    animationPlus.rotateZ(0).step();
+    this.setData({
+      animationPlus:animationPlus.export()
+    })
+    console.log(innerAudioContext)
+    // innerAudioContext.autoplay = true
+    innerAudioContext.play()
+    innerAudioContext.onPlay(()=>{
+      console.log('play')
+    })
+    innerAudioContext.onError((res) => {
+      console.log(res.errMsg)
+      console.log(res.errCode)
+    })
+  },
+  uuuupppp(e){
+    let _this = this;
+    let fileID = ''
+    let _imgList = _this.data.imgList,
+      _imgListed = [];
+    let _floder = this.getUserId();
+    let _openid = wx.getStorageSync('userInfo')._openid;
+    
+    _imgList.map((item, index) => {
+      const cloudPath = 'kklist/' + _openid + '-' + _floder + '/' + index + item.match(/\.[^.]+?$/)[0]
+      // 图片开始异步上传
+      wx.cloud.uploadFile({
+        cloudPath: cloudPath,
+        filePath: item,
+      }).then(res => {
+        if (res.statusCode === 200) {
+          _imgListed.push(res.fileID);
+          // 所有图片上传结束
+          if (_imgList.length === _imgListed.length) {
+            wx.showLoading({
+              title: '上传中...',
+            })
+            wx.cloud.uploadFile({
+              cloudPath: _this.data.myAudio,
+              filePath: _this.data.audiotempFilePath,
+            }).then(res => {
+              if (res.statusCode === 200) {
+                
+                console.log(res.fileID)
+                
+                _this.submitForm(e, _imgListed,res.fileID);
+                wx.hideLoading();
+              }
+            })
+           
+          }
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+    })
   }
+
 })

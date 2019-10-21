@@ -1,0 +1,10 @@
+/* pages/components/dianzan/dianzan.wxss */
+.dian-box{
+    position: absolute;
+    right: 80rpx;
+    top: 8rpx;
+}
+.dian{
+    width: 30rpx;
+    height: 30rpx;
+}

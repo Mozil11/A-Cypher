@@ -2,18 +2,26 @@
 	"miniprogramRoot": "miniprogram/",
 	"cloudfunctionRoot": "cloudfunctions/",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
+		"enhance": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"nodeModules": true,
+		"coverView": true,
 		"autoAudits": false,
-		"uglifyFileName": true
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
-	"appid": "wx5d0e03760bbb33bb",
-	"projectname": "A Cypher",
-	"libVersion": "2.6.4",
+	"appid": "wxfb8a769f2eefa581",
+	"projectname": "miniprogram-1",
+	"libVersion": "2.8.1",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
@@ -33,55 +41,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": 0,
 			"list": [
 				{
-					"id": 0,
-					"name": "我的",
-					"pathName": "pages/mine/mine",
-					"query": "",
-					"scene": null
-				},
-				{
 					"id": -1,
-					"name": "黑名单",
-					"pathName": "pages/mine/defriendList/defriendList",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "天气",
-					"pathName": "pages/weather/weather",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "富文本",
-					"pathName": "pages/richText/richText",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "用户列表",
-					"pathName": "pages/mine/userList/userList",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "测试",
-					"pathName": "pages/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "AI图片识别",
-					"pathName": "pages/aip/aip",
-					"scene": null
+					"name": "db guide",
+					"pathName": "pages/databaseGuide/databaseGuide"
 				}
 			]
 		}

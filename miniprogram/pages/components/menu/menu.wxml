@@ -1,0 +1,25 @@
+<!--pages/components/menu.wxml-->
+<view class="container">
+  <view class="drag" catchtouchmove="touchMoveChange" catch:tap="plus" style="left:{{drag_style.x}};top:{{drag_style.y}};">
+      
+    <view class="release-btn"  animation="{{animAi}}" capture-catch:tap="collectAi">
+            <icon class="iconfont icon-AI"></icon>
+          
+    </view>
+    <view class="release-btn" animation="{{animInput}}" capture-catch:tap="input">
+            <icon class="iconfont icon-fabuxinxi" ></icon>
+        </view>
+    <view class="release-btn" animation="{{animRef}}" capture-catch:tap="ref">
+        <icon class="iconfont icon-icon_refresh"></icon>
+    </view>
+   <view class="img-plus-style" animation="{{animPlus}}">
+       <image class="im"
+         src="../../../images/release/menu.png"
+         mode="scaleToFill"
+         lazy-load="false">
+       </image>
+       
+   </view>
+    
+  </view>
+</view>

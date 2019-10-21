@@ -1,4 +1,5 @@
 {
-    "navigationBarTitleText": "硬核天地",
+    "navigationBarTitleText": "发帖",
+    "navigationBarBackgroundColor": "#fff",
     "usingComponents": {}
 }

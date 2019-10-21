@@ -1,0 +1,5 @@
+<!--pages/components/dianzan/dianzan.wxml-->
+<view class="dian-box">
+    <image  src="{{img}}" alt=""  animation="{{animateDian}}" class="dian" bind:tap="tapanimate" wx:if="{{!isDianzan}}"/> 
+    <image  src="{{imag}}" alt=""  animation="{{unAnimateDian}}" class="dian" bind:tap="untap" wx:else/> 
+</view>

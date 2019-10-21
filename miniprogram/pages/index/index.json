@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "硬核天地",
+  "navigationBarTitleText": "A Cypher",
   "enablePullDownRefresh": false,
   "backgroundTextStyle": "dark",
   "navigationBarTextStyle": "white",
@@ -7,6 +7,8 @@
   "onReachBottomDistance": 200,
   "usingComponents": {
     "displayPartText": "../components/display-part-text/display-part-text",
-    "weather": "plugin://weather/weather"
+    "weather": "plugin://weather/weather",
+    "menu":"../components/menu/menu",
+    "dian":"../components/dianzan/dianzan"
   }
 }

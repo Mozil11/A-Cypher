@@ -1,0 +1,143 @@
+/* miniprogram/pages/mine/mine.wxss */
+
+.mine {
+    min-height: 100vh;
+    position: relative;
+}
+
+/* head */
+
+.head-block {
+    height: 360rpx;
+    padding-top: 170rpx;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.back-page {
+    position: absolute;
+    left: 30rpx;
+    /* top: 80rpx; */
+    /* top:13vw; */
+    z-index: 100;
+}
+
+.back-page .iconfont {
+    font-size: 50rpx;
+    color: #fff;
+}
+
+.head-block .main-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+.head-block::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.userInfo-btn {
+    z-index: 11;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0);
+    line-height: inherit
+}
+
+.userInfo-btn::after {
+    border: 0;
+}
+
+.userInfo-btn .avatar {
+    height: 80rpx;
+    width: 80rpx;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.userInfo-btn .username {
+    font-size: 28rpx;
+    font-weight: bold;
+    color: #000;
+}
+
+.userInfo-btn .username.active {
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 6rpx
+}
+
+/* action */
+
+.action-list {
+    /* padding-bottom: 160rpx; */
+}
+
+.action-list  .action-item {
+    width: 100%;
+    padding: 0 0 0 30rpx;
+    box-sizing: border-box;
+}
+
+.action-item {
+    width: 100%;
+    padding: 0 0 0 30rpx;
+    box-sizing: border-box;
+}
+
+.action-item .item-content {
+    height: 90rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.action-item .item-content .item-title {
+    color: #666;
+}
+
+.action-item .item-content .iconfont {
+    margin-right: 30rpx;
+    font-size: 28rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+}
+
+.contact-btn {
+    background: #fff;
+}
+
+.about-yh {
+    padding: 30rpx;
+    color: #666;
+    line-height: 48rpx;
+    text-indent: 2em;
+}
+
+/* 版权 */
+
+.copyright {
+    width: 100%;
+    margin-top: 70rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    display: inline-block;
+    text-align: center;
+    color: #999;
+    position: absolute;
+    bottom: 0;
+}

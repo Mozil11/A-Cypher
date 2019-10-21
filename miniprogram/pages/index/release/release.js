@@ -27,7 +27,7 @@ Page({
     hour:0,
     time:'',
     audioTime:'',
-
+    count:0,
 
     currLength: 0,
     maxlength: 500,
@@ -117,6 +117,7 @@ Page({
     
     let _obj = {
       time:[this.data.hour,this.data.min,this.data.second],
+      // count:this.data.count,
       audio:fileID,
       image: imgArr,
       content: e.detail.value.Message,

@@ -19,10 +19,10 @@ Component({
     animateDian:{},//动画
     unAnimateDian:{},
     img:'../../../images/common/dianzan.png',
-    imag:'../../../images/common/dianzan2.png'
+    imag:'../../../images/common/dianzan2.png',
+    count:0
   },
   attached () {
-    console.log(this.properties.openId)
     this.getgood()
    },
    pageLifetimes:{
@@ -37,6 +37,7 @@ Component({
   methods: {
     //查询是否点赞
     getgood(){
+      
       var that = this
       wx.cloud.callFunction({
         name:'feelgood',
@@ -59,9 +60,31 @@ Component({
       }).catch(e=>{
         console.log(e)
       })
+      db.collection('feelgood').where({
+        _myid:that.properties.createId
+      }).get().then(res=>{
+        that.setData({
+          count:res.data.length
+        })
+      })
+     
     },
     //点赞添加数据
     tapanimate(){
+      let _isLogin = wx.getStorageSync('isLogin');
+      if (!_isLogin) {
+        wx.showToast({
+            title: '您还未登录,请先登录~',
+            icon: 'none'
+        })
+
+        setTimeout(() => {
+            wx.navigateTo({
+                url: '../login/login',
+            })
+        }, 1000)
+        return;
+    }
       var that = this;
       console.log(1)
       var animateDian = wx.createAnimation({
@@ -95,11 +118,28 @@ Component({
           console.log(res)
         }
       })
+      that.setData({
+        count:that.data.count+1
+      })
+      
     },
     //取消点赞删除数据
     untap(){
       var that = this;
-      console.log(2)
+      let _isLogin = wx.getStorageSync('isLogin');
+      if (!_isLogin) {
+        wx.showToast({
+            title: '您还未登录,请先登录~',
+            icon: 'none'
+        })
+
+        setTimeout(() => {
+            wx.navigateTo({
+                url: '../login/login',
+            })
+        }, 1000)
+        return;
+    }
       var animateDian = wx.createAnimation({
         duration: 500,
         timingFunction: 'linear',
@@ -131,6 +171,10 @@ Component({
       }).then(res=>{
         console.log(res)
       })
+      that.setData({
+        count:that.data.count-1
+      })
+      
     }
   }
 })

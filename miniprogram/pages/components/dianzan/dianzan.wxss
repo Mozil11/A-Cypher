@@ -7,4 +7,11 @@
 .dian{
     width: 30rpx;
     height: 30rpx;
+    vertical-align: middle;
+    margin-bottom: 10rpx;
+    margin-right: 10rpx;
+}
+.count{
+    float: right;
+    color: #999999;
 }

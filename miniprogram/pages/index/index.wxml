@@ -9,9 +9,10 @@
                   type="search"
                   size="14"
                   color="#fff"
+                 
                   >
                 </icon>
-                <input class="search-input" placeholder-class="search-input-place" bindinput="bindKeyInput" placeholder="输入关键词" wx:if="{{true}}" />
+                <input  class="search-input" placeholder-class="search-input-place" bindinput="bindKeyInput" placeholder="输入关键词" wx:if="{{true}}" />
             </view>
         <view wx:if="{{!isRelease}}" class="tq">天气不错哦</view>
         <view wx:if="{{!isRelease}}" class="tq">笑一个吧

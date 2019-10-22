@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    animateDian:{},
     
     isHeader: false,
     searchValue:'',
@@ -30,6 +31,16 @@ Page({
     appid: '',
     animationPlus:{}
   },
+//   searchIcon(){
+//     var animateDian = wx.createAnimation({
+//         duration: 5000,
+//         timingFunction: 'linear'
+//       })
+//       animateDian.width(10).step();
+//       this.setData({
+//         animateDian:animateDian.export()
+//       })
+//   },
   audioPlay (e) {
     innerAudioContext.src = e.currentTarget.dataset.audio
     // console.log(e)

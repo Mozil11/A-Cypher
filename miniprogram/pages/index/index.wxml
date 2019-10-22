@@ -4,19 +4,28 @@
         <image class="banner" src='../../images/common/index-bg.jpg' mode="aspectFill"></image>
         <!-- 天气 -->
         <weather size="sm" theme="light"  />
+        <view class="inputbox">
+                <icon class="se"
+                  type="search"
+                  size="14"
+                  color="#fff"
+                  >
+                </icon>
+                <input class="search-input" placeholder-class="search-input-place" bindinput="bindKeyInput" placeholder="输入关键词" wx:if="{{true}}" />
+            </view>
         <view wx:if="{{!isRelease}}" class="tq">天气不错哦</view>
         <view wx:if="{{!isRelease}}" class="tq">笑一个吧
-        <image
-          src="../../images/common/dianzan2.png"
-          mode="scaleToFill"
-          lazy-load="false" style="height:50rpx;width:50rpx;">
-        </image>
+            <image
+            src="../../images/common/dianzan2.png"
+            mode="scaleToFill"
+            lazy-load="false" style="height:50rpx;width:50rpx;">
+            </image>
         </view>
         <view class="mine-btn-block {{isHeader ? 'active' : ''}}">
             <image class="banner" src='../../images/common/index-bg.jpg' mode="aspectFill"></image>
             
             <navigator wx:if="{{isRelease}}" class="mine-btn" url="../mine/mine">Cypher</navigator>
-            <input class="search-input" placeholder-class="search-input-place" bindinput="bindKeyInput" placeholder="输入关键词" wx:if="{{false}}" />
+            
         </view>
 
     </view>

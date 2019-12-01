@@ -46,7 +46,7 @@ git clone https://github.com/Mozil11/A-Cypher.git
 ## 对您有帮助的话，可以帮我点个start~
 ## 喜欢可以打赏一下，感谢支持~
 ![](./01pay.jpeg)
-## 技术支持微信
+## 技术支持微信，如若商用也请联系商议
 ![](./a.png)
 
 ## 关于云函数
